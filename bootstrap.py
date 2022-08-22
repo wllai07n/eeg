@@ -372,16 +372,16 @@ def main():
 
     pip_bin = "/opt/tljh/hub/bin/pip"
     # Install/upgrade TLJH installer
-    tljh_install_cmd = [pip_bin, "install", "--upgrade"] #sudo /opt/tljh/hub/bin/pip install --upgrade
-    if os.environ.get("TLJH_BOOTSTRAP_DEV", "no") == "yes":
-        logger.info("Selected TLJH_BOOTSTRAP_DEV=yes...")
-        tljh_install_cmd.append("--editable")
-    tljh_install_cmd.append(
-        os.environ.get(
-            "TLJH_BOOTSTRAP_PIP_SPEC",
-            "git+https://github.com/jupyterhub/the-littlest-jupyterhub.git",
-        )
-    ) #git+https://github.com/jupyterhub/the-littlest-jupyterhub.git
+    #tljh_install_cmd = [pip_bin, "install", "--upgrade"] #sudo /opt/tljh/hub/bin/pip install --upgrade
+    #if os.environ.get("TLJH_BOOTSTRAP_DEV", "no") == "yes":
+    #    logger.info("Selected TLJH_BOOTSTRAP_DEV=yes...")
+    #    tljh_install_cmd.append("--editable")
+    #tljh_install_cmd.append(
+    #    os.environ.get(
+    #        "TLJH_BOOTSTRAP_PIP_SPEC",
+    #        "git+https://github.com/jupyterhub/the-littlest-jupyterhub.git",
+    #    )
+    #) #git+https://github.com/jupyterhub/the-littlest-jupyterhub.git
     
 
     if initial_setup:
@@ -393,7 +393,7 @@ def main():
     # Run TLJH installer
     logger.info("Running TLJH installer...")
     os.execv(python_bin, [python_bin, "-m", "tljh.installer"] + tljh_installer_flags)
-    # os.execv("/opt/tljh/hub/bin/python3", ["/opt/tljh/hub/bin/python3", "-m", "tljh.installer"])
+    # os.execv("/opt/tljh/hub/bin/python3", ["/opt/tljh/hub/bin/python3", "-m", "tljh.installer"] + bci)
 
 
 if __name__ == "__main__":
