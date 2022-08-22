@@ -262,10 +262,10 @@ def main():
     ensure_host_system_can_install_tljh()
 
     # Various related constants
-    install_prefix = os.environ.get("TLJH_INSTALL_PREFIX", "/opt/tljh")
-    hub_prefix = os.path.join(install_prefix, "hub")
-    python_bin = os.path.join(hub_prefix, "bin", "python3")
-    pip_bin = os.path.join(hub_prefix, "bin", "pip")
+    install_prefix = os.environ.get("TLJH_INSTALL_PREFIX", "/opt/tljh") #"/opt/tljh"
+    hub_prefix = os.path.join(install_prefix, "hub") #"/opt/tljh/hub"
+    python_bin = os.path.join(hub_prefix, "bin", "python3") #/opt/tljh/hub/bin/python3
+    pip_bin = os.path.join(hub_prefix, "bin", "pip") #"/opt/tljh/hub/bin/pip"
     initial_setup = not os.path.exists(python_bin)
 
     # Attempt to start a web server to serve a progress page reporting
@@ -340,14 +340,14 @@ def main():
         #
     #    apt_get_adjusted_env = os.environ.copy()
     #    apt_get_adjusted_env["DEBIAN_FRONTEND"] = "noninteractive"
-    #    run_subprocess(["apt-get", "update"])
+    #    run_subprocess(["apt-get", "update"]) # sudo apt-get update
     #    run_subprocess(
     #        ["apt-get", "install", "--yes", "software-properties-common"],
     #        env=apt_get_adjusted_env,
-    #    )
-    #    run_subprocess(["add-apt-repository", "universe", "--yes"])
-    #    run_subprocess(["apt-get", "update"])
-    #    run_subprocess(
+    #    ) # sudo apt-get install --yes software-properties-common
+    #    run_subprocess(["add-apt-repository", "universe", "--yes"]) # sudo add-apt-repository universe --yes
+    #    run_subprocess(["apt-get", "update"]) # sudo apt-get update
+    #    run_subprocess( 
     #        [
     #            "apt-get",
     #            "install",
@@ -358,20 +358,21 @@ def main():
     #            "git",
     #        ],
     #        env=apt_get_adjusted_env,
-    #    )
+    #    )#sudo apt-get install --yes python3 python3-venv python3-pip git
 
     #    logger.info("Setting up virtual environment at {}".format(hub_prefix))
     #    os.makedirs(hub_prefix, exist_ok=True)
-    #    run_subprocess(["python3", "-m", "venv", hub_prefix])
+    #    run_subprocess(["python3", "-m", "venv", hub_prefix]) # sudo python3 -m venv /opt/tljh/hub
 
     # Upgrade pip
     # Keep pip version pinning in sync with the one in unit-test.yml!
     # See changelog at https://pip.pypa.io/en/latest/news/#changelog
     #logger.info("Upgrading pip...")
-    #run_subprocess([pip_bin, "install", "--upgrade", "pip==21.3.*"])
+    #run_subprocess([pip_bin, "install", "--upgrade", "pip==21.3.*"]) # sudo /opt/tljh/hub/bin/pip install --upgrade pip==21.3.*
 
+    pip_bin = "/opt/tljh/hub/bin/pip"
     # Install/upgrade TLJH installer
-    tljh_install_cmd = [pip_bin, "install", "--upgrade"]
+    tljh_install_cmd = [pip_bin, "install", "--upgrade"] #sudo /opt/tljh/hub/bin/pip install --upgrade
     if os.environ.get("TLJH_BOOTSTRAP_DEV", "no") == "yes":
         logger.info("Selected TLJH_BOOTSTRAP_DEV=yes...")
         tljh_install_cmd.append("--editable")
@@ -380,16 +381,19 @@ def main():
             "TLJH_BOOTSTRAP_PIP_SPEC",
             "git+https://github.com/jupyterhub/the-littlest-jupyterhub.git",
         )
-    )
+    ) #git+https://github.com/jupyterhub/the-littlest-jupyterhub.git
+    
+
     if initial_setup:
         logger.info("Installing TLJH installer...")
     else:
         logger.info("Upgrading TLJH installer...")
-    run_subprocess(tljh_install_cmd)
+    run_subprocess(tljh_install_cmd) # sudo /opt/tljh/hub/bin/pip install --upgrade git+https://github.com/jupyterhub/the-littlest-jupyterhub.git
 
     # Run TLJH installer
     logger.info("Running TLJH installer...")
     os.execv(python_bin, [python_bin, "-m", "tljh.installer"] + tljh_installer_flags)
+    # os.execv("/opt/tljh/hub/bin/python3", ["/opt/tljh/hub/bin/python3", "-m", "tljh.installer"])
 
 
 if __name__ == "__main__":
