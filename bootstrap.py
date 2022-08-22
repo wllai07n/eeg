@@ -372,23 +372,23 @@ def main():
 
     pip_bin = "/opt/tljh/hub/bin/pip"
     # Install/upgrade TLJH installer
-    tljh_install_cmd = [pip_bin, "install", "--upgrade"] #sudo /opt/tljh/hub/bin/pip install --upgrade
-    if os.environ.get("TLJH_BOOTSTRAP_DEV", "no") == "yes":
-        logger.info("Selected TLJH_BOOTSTRAP_DEV=yes...")
-        tljh_install_cmd.append("--editable")
-    tljh_install_cmd.append(
-        os.environ.get(
-            "TLJH_BOOTSTRAP_PIP_SPEC",
-            "git+https://github.com/jupyterhub/the-littlest-jupyterhub.git",
-        )
-    ) #git+https://github.com/jupyterhub/the-littlest-jupyterhub.git
+    #tljh_install_cmd = [pip_bin, "install", "--upgrade"] #sudo /opt/tljh/hub/bin/pip install --upgrade
+    #if os.environ.get("TLJH_BOOTSTRAP_DEV", "no") == "yes":
+    #    logger.info("Selected TLJH_BOOTSTRAP_DEV=yes...")
+    #    tljh_install_cmd.append("--editable")
+    #tljh_install_cmd.append(
+    #    os.environ.get(
+    #        "TLJH_BOOTSTRAP_PIP_SPEC",
+    #        "git+https://github.com/jupyterhub/the-littlest-jupyterhub.git",
+    #    )
+    #) #git+https://github.com/jupyterhub/the-littlest-jupyterhub.git
     
 
-    if initial_setup:
-        logger.info("Installing TLJH installer...")
-    else:
-        logger.info("Upgrading TLJH installer...")
-    run_subprocess(tljh_install_cmd) # sudo /opt/tljh/hub/bin/pip install --upgrade git+https://github.com/jupyterhub/the-littlest-jupyterhub.git
+    #if initial_setup:
+    #    logger.info("Installing TLJH installer...")
+    #else:
+    #    logger.info("Upgrading TLJH installer...")
+    #run_subprocess(tljh_install_cmd) # sudo /opt/tljh/hub/bin/pip install --upgrade git+https://github.com/jupyterhub/the-littlest-jupyterhub.git
 
     # Run TLJH installer
     logger.info("Running TLJH installer...")
