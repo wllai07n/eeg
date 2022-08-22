@@ -372,16 +372,16 @@ def main():
 
     pip_bin = "/opt/tljh/hub/bin/pip"
     # Install/upgrade TLJH installer
-    #tljh_install_cmd = [pip_bin, "install", "--upgrade"] #sudo /opt/tljh/hub/bin/pip install --upgrade
-    #if os.environ.get("TLJH_BOOTSTRAP_DEV", "no") == "yes":
-    #    logger.info("Selected TLJH_BOOTSTRAP_DEV=yes...")
-    #    tljh_install_cmd.append("--editable")
-    #tljh_install_cmd.append(
-    #    os.environ.get(
-    #        "TLJH_BOOTSTRAP_PIP_SPEC",
-    #        "git+https://github.com/jupyterhub/the-littlest-jupyterhub.git",
-    #    )
-    #) #git+https://github.com/jupyterhub/the-littlest-jupyterhub.git
+    tljh_install_cmd = [pip_bin, "install", "--upgrade"] #sudo /opt/tljh/hub/bin/pip install --upgrade
+    if os.environ.get("TLJH_BOOTSTRAP_DEV", "no") == "yes":
+        logger.info("Selected TLJH_BOOTSTRAP_DEV=yes...")
+        tljh_install_cmd.append("--editable")
+    tljh_install_cmd.append(
+        os.environ.get(
+            "TLJH_BOOTSTRAP_PIP_SPEC",
+            "git+https://github.com/jupyterhub/the-littlest-jupyterhub.git",
+        )
+    ) #git+https://github.com/jupyterhub/the-littlest-jupyterhub.git
     
 
     if initial_setup:
@@ -398,3 +398,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
+#curl -L https://raw.githubusercontent.com/wllai07n/eeg/main/bootstrap.py | sudo python3 - --admin bci
