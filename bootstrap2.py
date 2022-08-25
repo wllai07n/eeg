@@ -391,8 +391,9 @@ def main():
     #run_subprocess(tljh_install_cmd) # sudo /opt/tljh/hub/bin/pip install --upgrade git+https://github.com/jupyterhub/the-littlest-jupyterhub.git
 
     # Run TLJH installer
-    logger.info("Running TLJH installer...")
-    os.execv(python_bin, [python_bin, "-m", "tljh.installer"] + tljh_installer_flags)
+    logger.info("Running TLJH installer..." + str(tljh_installer_flags))
+
+    #os.execv(python_bin, [python_bin, "-m", "tljh.installer"] + tljh_installer_flags)
     # os.execv("/opt/tljh/hub/bin/python3", ["/opt/tljh/hub/bin/python3", "-m", "tljh.installer"] + bci)
 
 
